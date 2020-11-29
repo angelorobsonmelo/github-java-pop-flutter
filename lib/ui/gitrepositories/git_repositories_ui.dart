@@ -46,7 +46,7 @@ class GitRepositoriesScreen extends StatelessWidget {
   InkWell buildRepositoriesList(GitRepository repository) {
     return InkWell(
       child: Container(
-        height: 95,
+        height: 120,
         margin: EdgeInsets.all(16),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -59,51 +59,74 @@ class GitRepositoriesScreen extends StatelessWidget {
 
   Column firstSession(GitRepository repository) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          child: Text(repository.name),
+          child: Text(
+            repository.name,
+            style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 22, color: Colors.blue),
+          ),
         ),
         Container(
+            margin: EdgeInsets.only(top: 4),
             width: 250,
-            child: Text(repository.description,
-                maxLines: 2, overflow: TextOverflow.ellipsis)),
-        Container(
-          margin: EdgeInsets.only(top: 10),
-          child: Row(
-            children: [
-              Container(
-                height: 24,
-                width: 24,
-                child: Image(
-                  image: AssetImage('images/icon_fork.png'),
-                  color: Colors.yellow,
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(left: 5),
-                height: 24,
-                child: Text(repository.forksCount.toString()),
-              ),
-              Container(
-                margin: EdgeInsets.only(left: 8),
-                height: 24,
-                width: 24,
-                child: Icon(
-                  Icons.star,
-                  color: Colors.yellow,
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(left: 5),
-                height: 24,
-                child: Text(repository.forksCount.toString()),
-              )
-            ],
-          ),
-        )
+            child: Text(
+              repository.description,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(fontWeight: FontWeight.bold),
+            )),
+        buildContainerIcons(repository)
       ],
+    );
+  }
+
+  Container buildContainerIcons(GitRepository repository) {
+    return Container(
+      margin: EdgeInsets.only(top: 16),
+      child: Row(
+        children: [
+          Container(
+            height: 24,
+            width: 24,
+            child: Image(
+              image: AssetImage('images/icon_fork.png'),
+              color: Colors.black87,
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(left: 5),
+            height: 24,
+            child: Text(repository.forksCount.toString(),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    color: Colors.black87)),
+          ),
+          Container(
+            margin: EdgeInsets.only(left: 8),
+            height: 24,
+            width: 24,
+            child: Icon(
+              Icons.star,
+              color: Colors.black87,
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(left: 5),
+            height: 24,
+            child: Text(
+              repository.forksCount.toString(),
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                  color: Colors.black87),
+            ),
+          )
+        ],
+      ),
     );
   }
 
@@ -117,9 +140,13 @@ class GitRepositoriesScreen extends StatelessWidget {
           backgroundImage: NetworkImage(repository.owner.avatarUrl),
         ),
         Container(
-          width: 70,
+          margin: EdgeInsets.only(top: 4),
+          width: 80,
           alignment: Alignment.center,
-          child: Text(repository.owner.login),
+          child: Text(
+            repository.owner.login,
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
+          ),
         )
       ],
     );

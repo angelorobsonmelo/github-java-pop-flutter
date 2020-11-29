@@ -11,15 +11,15 @@ class GitRepositoryBloc implements BlocBase {
   Stream<List<GitRepository>> get outGitRepositories =>
       _gitRepositoryController.stream;
 
-  @override
-  void dispose() {
-    _gitRepositoryController.close();
-  }
-
   void getRepositories({int page = 1}) async {
     List<GitRepository> repositories =
         await _gitRepositoryUseCase.getGitRepositories(page);
 
     _gitRepositoryController.add(repositories);
+  }
+
+  @override
+  void dispose() {
+    _gitRepositoryController.close();
   }
 }
