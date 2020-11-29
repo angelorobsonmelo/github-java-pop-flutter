@@ -43,8 +43,8 @@ class GitRepositoriesScreen extends StatelessWidget {
   InkWell buildRepositoriesList(GitRepository repository) {
     return InkWell(
       child: Container(
-        height: 100,
-        margin: EdgeInsets.all(18),
+        height: 95,
+        margin: EdgeInsets.all(16),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [firstSession(repository), secondSession(repository)],
@@ -63,14 +63,41 @@ class GitRepositoriesScreen extends StatelessWidget {
           child: Text(repository.name),
         ),
         Container(
-            width: 300,
+            width: 250,
             child: Text(repository.description,
                 maxLines: 2, overflow: TextOverflow.ellipsis)),
         Container(
           margin: EdgeInsets.only(top: 10),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [Icon(Icons.description), Icon(Icons.description)],
+            children: [
+              Container(
+                height: 24,
+                width: 24,
+                child: Image(
+                  image: AssetImage('images/icon_fork.png'),
+                  color: Colors.yellow,
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(left: 5),
+                height: 24,
+                child: Text(repository.forksCount.toString()),
+              ),
+              Container(
+                margin: EdgeInsets.only(left: 8),
+                height: 24,
+                width: 24,
+                child: Icon(
+                  Icons.star,
+                  color: Colors.yellow,
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(left: 5),
+                height: 24,
+                child: Text(repository.forksCount.toString()),
+              )
+            ],
           ),
         )
       ],
