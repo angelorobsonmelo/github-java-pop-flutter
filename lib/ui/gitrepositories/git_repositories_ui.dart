@@ -26,7 +26,7 @@ class GitRepositoriesScreen extends StatelessWidget {
                   separatorBuilder: (context, index) => Container(
                         margin: EdgeInsets.only(left: 15),
                         child: Divider(
-                          color: Colors.black87,
+                          color: Colors.grey,
                         ),
                       ),
                   itemCount: snapshot.data.length,
@@ -42,47 +42,56 @@ class GitRepositoriesScreen extends StatelessWidget {
 
   InkWell buildRepositoriesList(GitRepository repository) {
     return InkWell(
-      child: SizedBox(
-        child: Column(
-          children: [
-            Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(repository.name),
-                  Column(
-                    children: [
-                      CircleAvatar(
-                        radius: 25,
-                        backgroundImage: NetworkImage(repository.owner.avatarUrl),
-
-                      ),
-                      Text(repository.owner.login)
-                    ],
-                  )
-                ]),
-            Container(
-              width: 100,
-              child: Text(repository.description,
-                  maxLines: 2, overflow: TextOverflow.ellipsis),
-            ),
-            Row(
-              children: [
-                Icon(Icons.add),
-                Text(repository.forksCount.toString()),
-                SizedBox(
-                  width: 15,
-                ),
-                Icon(Icons.login),
-                Text(repository.stargazersCount.toString())
-              ],
-            )
-          ],
+      child: Container(
+        height: 100,
+        margin: EdgeInsets.all(18),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [firstSession(repository), secondSession(repository)],
         ),
       ),
-      onTap: () {
+      onTap: () {},
+    );
+  }
 
-      },
+  Column firstSession(GitRepository repository) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Container(
+          child: Text(repository.name),
+        ),
+        Container(
+            width: 300,
+            child: Text(repository.description,
+                maxLines: 2, overflow: TextOverflow.ellipsis)),
+        Container(
+          margin: EdgeInsets.only(top: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [Icon(Icons.description), Icon(Icons.description)],
+          ),
+        )
+      ],
+    );
+  }
+
+  Column secondSession(GitRepository repository) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        CircleAvatar(
+          radius: 25,
+          backgroundImage: NetworkImage(repository.owner.avatarUrl),
+        ),
+        Container(
+          width: 70,
+          alignment: Alignment.center,
+          child: Text(repository.owner.login),
+        )
+      ],
     );
   }
 }
