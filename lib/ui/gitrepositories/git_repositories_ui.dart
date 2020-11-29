@@ -22,18 +22,21 @@ class GitRepositoriesScreen extends StatelessWidget {
             if (!snapshot.hasData || snapshot.data.isEmpty)
               return Center(child: CircularProgressIndicator());
             else
-              return ListView.separated(
-                  separatorBuilder: (context, index) => Container(
-                        margin: EdgeInsets.only(left: 15),
-                        child: Divider(
-                          color: Colors.grey,
+              return Container(
+                child: ListView.separated(
+                    padding: EdgeInsets.only(top: 46),
+                    separatorBuilder: (context, index) => Container(
+                          margin: EdgeInsets.only(left: 15),
+                          child: Divider(
+                            color: Colors.grey,
+                          ),
                         ),
-                      ),
-                  itemCount: snapshot.data.length,
-                  itemBuilder: (context, index) {
-                    final repository = snapshot.data[index];
-                    return buildRepositoriesList(repository);
-                  });
+                    itemCount: snapshot.data.length,
+                    itemBuilder: (context, index) {
+                      final repository = snapshot.data[index];
+                      return buildRepositoriesList(repository);
+                    }),
+              );
           },
         ),
       ),
