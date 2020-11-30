@@ -46,7 +46,7 @@ class GitRepositoriesScreen extends StatelessWidget {
   InkWell buildRepositoriesList(GitRepository repository) {
     return InkWell(
       child: Container(
-        height: 120,
+        height: 110,
         margin: EdgeInsets.all(16),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -59,14 +59,15 @@ class GitRepositoriesScreen extends StatelessWidget {
 
   Column firstSession(GitRepository repository) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
+          width: 250,
           child: Text(
             repository.name,
             style: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: 22, color: Colors.blue),
+                fontWeight: FontWeight.bold, fontSize: 18, color: Colors.blue),
           ),
         ),
         Container(
@@ -141,7 +142,7 @@ class GitRepositoriesScreen extends StatelessWidget {
         ),
         Container(
           margin: EdgeInsets.only(top: 4),
-          width: 80,
+          width: 85,
           alignment: Alignment.center,
           child: Text(
             repository.owner.login,
