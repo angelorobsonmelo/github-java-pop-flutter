@@ -9,6 +9,7 @@ class GitRepositoriesScreen extends StatelessWidget {
     final bloc = BlocProvider.of<GitRepositoryBloc>(context);
 
     bloc.getRepositories();
+    int page = 1;
 
     return Container(
       child: Scaffold(
@@ -18,6 +19,7 @@ class GitRepositoriesScreen extends StatelessWidget {
         ),
         body: StreamBuilder(
           stream: bloc.outGitRepositories,
+          initialData: [],
           builder: (context, snapshot) {
             if (!snapshot.hasData || snapshot.data.isEmpty)
               return Center(child: CircularProgressIndicator());
@@ -31,10 +33,26 @@ class GitRepositoriesScreen extends StatelessWidget {
                             color: Colors.grey,
                           ),
                         ),
-                    itemCount: snapshot.data.length,
+                    itemCount: snapshot.data.length + 1,
                     itemBuilder: (context, index) {
-                      final repository = snapshot.data[index];
-                      return buildRepositoriesList(repository);
+                      if (index < snapshot.data.length) {
+                        final repository = snapshot.data[index];
+                        return buildRepositoriesList(repository);
+                      } else if (index > 1) {
+                        page++;
+                        bloc.getRepositories(page: page);
+                        return Container(
+                          height: 40,
+                          width: 40,
+                          alignment: Alignment.center,
+                          child: CircularProgressIndicator(
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(Colors.red),
+                          ),
+                        );
+                      } else {
+                        return Container();
+                      }
                     }),
               );
           },
@@ -46,7 +64,7 @@ class GitRepositoriesScreen extends StatelessWidget {
   InkWell buildRepositoriesList(GitRepository repository) {
     return InkWell(
       child: Container(
-        height: 110,
+        height: 120,
         margin: EdgeInsets.all(16),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -74,7 +92,7 @@ class GitRepositoriesScreen extends StatelessWidget {
             margin: EdgeInsets.only(top: 4),
             width: 250,
             child: Text(
-              repository.description,
+              repository.description == null ? '' : repository.description,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(fontWeight: FontWeight.bold),

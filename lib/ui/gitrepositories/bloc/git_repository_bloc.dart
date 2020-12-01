@@ -6,16 +6,22 @@ import 'package:rxdart/rxdart.dart';
 class GitRepositoryBloc implements BlocBase {
   GitRepositoryUseCase _gitRepositoryUseCase = GitRepositoryUseCase();
   final _gitRepositoryController =
-      BehaviorSubject<List<GitRepository>>(seedValue: []);
+  BehaviorSubject<List<GitRepository>>(seedValue: []);
+
+  List<GitRepository> gitRepositories;
 
   Stream<List<GitRepository>> get outGitRepositories =>
       _gitRepositoryController.stream;
 
   void getRepositories({int page = 1}) async {
-    List<GitRepository> repositories =
-        await _gitRepositoryUseCase.getGitRepositories(page);
+    if (page == 1) {
+      _gitRepositoryController.sink.add([]);
+      gitRepositories = await _gitRepositoryUseCase.getGitRepositories(page);
+    } else {
+      gitRepositories += await _gitRepositoryUseCase.getGitRepositories(page);
+    }
 
-    _gitRepositoryController.add(repositories);
+    _gitRepositoryController.sink.add(gitRepositories);
   }
 
   @override
