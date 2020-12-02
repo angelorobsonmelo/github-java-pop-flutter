@@ -7,6 +7,7 @@ class GitRepository {
   final int forksCount;
   final int stargazersCount;
   final Owner owner;
+  final String pullsUrl;
 
   GitRepository(
       {this.id,
@@ -14,7 +15,8 @@ class GitRepository {
       this.description,
       this.forksCount,
       this.stargazersCount,
-      this.owner});
+      this.owner,
+      this.pullsUrl});
 
   factory GitRepository.fromJson(Map<String, dynamic> json) {
     return GitRepository(
@@ -23,6 +25,7 @@ class GitRepository {
         description: json['description'],
         forksCount: json['forks_count'],
         stargazersCount: json['stargazers_count'],
-        owner: Owner.fromJson(json['owner']));
+        owner: Owner.fromJson(json['owner']),
+        pullsUrl: json['pulls_url']);
   }
 }
