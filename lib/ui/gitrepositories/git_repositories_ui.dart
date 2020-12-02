@@ -2,14 +2,19 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:git_flutter_app/models/git_repository.dart';
 import 'package:git_flutter_app/ui/gitrepositories/bloc/git_repository_bloc.dart';
+import 'package:git_flutter_app/ui/pullrequests/pull_requests_ui.dart';
 
 class GitRepositoriesScreen extends StatelessWidget {
+
+  NavigatorState navigator;
+
   @override
   Widget build(BuildContext context) {
     final bloc = BlocProvider.of<GitRepositoryBloc>(context);
 
     bloc.getRepositories();
     int page = 1;
+    navigator = Navigator.of(context);
 
     return Container(
       child: Scaffold(
@@ -71,7 +76,10 @@ class GitRepositoriesScreen extends StatelessWidget {
           children: [firstSession(repository), secondSession(repository)],
         ),
       ),
-      onTap: () {},
+      onTap: () {
+        navigator
+            .push(MaterialPageRoute(builder: (context) => PullRequestsUi(gitRepository: repository,)));
+      },
     );
   }
 

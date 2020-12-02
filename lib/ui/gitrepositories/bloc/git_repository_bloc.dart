@@ -15,7 +15,6 @@ class GitRepositoryBloc implements BlocBase {
 
   void getRepositories({int page = 1}) async {
     if (page == 1) {
-      _gitRepositoryController.sink.add([]);
       gitRepositories = await _gitRepositoryUseCase.getGitRepositories(page);
     } else {
       gitRepositories += await _gitRepositoryUseCase.getGitRepositories(page);
