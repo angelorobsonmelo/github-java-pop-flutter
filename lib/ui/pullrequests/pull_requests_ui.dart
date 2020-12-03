@@ -1,6 +1,7 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:git_flutter_app/models/git_repository.dart';
+import 'package:git_flutter_app/models/pull_request_model.dart';
 import 'package:git_flutter_app/ui/pullrequests/bloc/pull_request_bloc.dart';
 
 class PullRequestsUi extends StatelessWidget {
@@ -18,22 +19,65 @@ class PullRequestsUi extends StatelessWidget {
           title: Text(gitRepository.name),
           backgroundColor: Colors.black87,
         ),
-        body: Container(
-          color: Colors.grey[300],
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(20, 22, 8, 22),
-            child: Row(
-              children: [
-                Text(
-                  '${this.gitRepository.name} ',
-                  style: TextStyle(
-                      color: Colors.yellow, fontWeight: FontWeight.bold),
-                ),
-                Text('/ ${this.gitRepository.name}',
-                    style: TextStyle(fontWeight: FontWeight.bold))
-              ],
-            ),
-          ),
+        body: Column(
+          children: [
+            StreamBuilder<Map<String, int>>(
+                stream: bloc.outCountIssuesOpenedAndClosed,
+                initialData: {},
+                builder: (context, snapshot) {
+                  return Container(
+                    color: Colors.grey[300],
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(20, 22, 8, 22),
+                      child: Row(
+                        children: [
+                          Text(
+                            '${snapshot.data['openIssuesCount'] == null ? 0 : snapshot.data['openIssuesCount']} opened ',
+                            style: TextStyle(
+                                color: Colors.yellow,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                              '/ ${snapshot.data['closeIssuesCount'] == null ? 0 : snapshot.data['closeIssuesCount']} closed',
+                              style: TextStyle(fontWeight: FontWeight.bold))
+                        ],
+                      ),
+                    ),
+                  );
+                }),
+            StreamBuilder(
+              stream: bloc.outPullRequests,
+              initialData: [],
+              builder: (context, snapshot) {
+                if (!snapshot.hasData || snapshot.data.isEmpty)
+                  return Center(child: CircularProgressIndicator());
+                else
+                  return Container(
+                    child: ListView.separated(
+                        padding: EdgeInsets.only(top: 46),
+                        separatorBuilder: (context, index) => Container(
+                              margin: EdgeInsets.only(left: 15),
+                              child: Divider(
+                                color: Colors.grey,
+                              ),
+                            ),
+                        itemCount: snapshot.data.length,
+                        itemBuilder: (context, index) {
+                          if (snapshot.hasData) {
+                            PullRequestModel pullRequest = snapshot.data[index];
+                            return ListTile(
+                              title: Text(pullRequest.title),
+                            );
+                          } else {
+                            return Container(
+                              child: Text('Nada!'),
+                            );
+                          }
+                        }),
+                  );
+              },
+            )
+          ],
         ));
   }
 }

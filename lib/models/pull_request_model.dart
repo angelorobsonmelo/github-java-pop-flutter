@@ -5,14 +5,10 @@ class PullRequestModel {
   final String title;
   final String body;
   final User user;
-  final int openIssuesCount;
-  final int closeIssuesCount;
 
   PullRequestModel(
       {this.id,
       this.title,
       this.body,
-      this.user,
-      this.openIssuesCount,
-      this.closeIssuesCount});
+      this.user});
 }
