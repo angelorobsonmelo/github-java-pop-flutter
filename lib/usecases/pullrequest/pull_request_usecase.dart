@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:git_flutter_app/constants/constants.dart';
 import 'package:git_flutter_app/entities/pull_request_entity.dart';
 import 'package:git_flutter_app/models/pull_request_model.dart';
 import 'package:git_flutter_app/models/pull_request_reponse.dart';
@@ -41,7 +42,7 @@ class PullRequestUseCase {
     int closeIssuesCount = 0;
 
     pullRequests.forEach((element) {
-      if (element.state == "open") {
+      if (element.state == Constants.OPEN) {
         openIssuesCount++;
       } else {
         closeIssuesCount++;

@@ -1,5 +1,6 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
+import 'package:git_flutter_app/constants/constants.dart';
 import 'package:git_flutter_app/models/git_repository.dart';
 import 'package:git_flutter_app/models/pull_request_model.dart';
 import 'package:git_flutter_app/ui/pullrequests/bloc/pull_request_bloc.dart';
@@ -32,13 +33,13 @@ class PullRequestsUi extends StatelessWidget {
                       child: Row(
                         children: [
                           Text(
-                            '${snapshot.data['openIssuesCount'] == null ? 0 : snapshot.data['openIssuesCount']} opened ',
+                            '${snapshot.data[Constants.OPEN_ISSUES_COUNT] == null ? 0 : snapshot.data[Constants.OPEN_ISSUES_COUNT]} opened ',
                             style: TextStyle(
                                 color: Colors.yellow,
                                 fontWeight: FontWeight.bold),
                           ),
                           Text(
-                              '/ ${snapshot.data['closeIssuesCount'] == null ? 0 : snapshot.data['closeIssuesCount']} closed',
+                              '/ ${snapshot.data[Constants.CLOSE_ISSUES_COUNT] == null ? 0 : snapshot.data[Constants.CLOSE_ISSUES_COUNT]} closed',
                               style: TextStyle(fontWeight: FontWeight.bold))
                         ],
                       ),

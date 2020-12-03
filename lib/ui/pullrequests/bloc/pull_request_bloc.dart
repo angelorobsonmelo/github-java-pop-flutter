@@ -1,4 +1,5 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:git_flutter_app/constants/constants.dart';
 import 'package:git_flutter_app/models/pull_request_model.dart';
 import 'package:git_flutter_app/models/pull_request_reponse.dart';
 import 'package:git_flutter_app/usecases/pullrequest/pull_request_usecase.dart';
@@ -24,12 +25,12 @@ class PullRequestBloc implements BlocBase {
 
     if (pullRequests.pullRequestsModel.isNotEmpty) {
       _issuesOpenAndCloseCountController.sink.add({
-        'openIssuesCount': pullRequests.openIssuesCount,
-        'closeIssuesCount': pullRequests.closeIssuesCount
+        Constants.OPEN_ISSUES_COUNT: pullRequests.openIssuesCount,
+        Constants.CLOSE_ISSUES_COUNT: pullRequests.closeIssuesCount
       });
     } else {
       _issuesOpenAndCloseCountController.sink
-          .add({'openIssuesCount': 0, 'closeIssuesCount': 0});
+          .add({Constants.OPEN_ISSUES_COUNT: 0, Constants.CLOSE_ISSUES_COUNT: 0});
     }
 
     _pullRequestController.sink.add(pullRequests.pullRequestsModel);
