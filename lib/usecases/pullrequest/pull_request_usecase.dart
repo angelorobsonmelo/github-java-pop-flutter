@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/services.dart';
 import 'package:git_flutter_app/constants/constants.dart';
 import 'package:git_flutter_app/entities/pull_request_entity.dart';
 import 'package:git_flutter_app/models/pull_request_model.dart';
@@ -13,9 +14,12 @@ class PullRequestUseCase {
   Future<PullRequestResponseModel> getPullRequests(String fullUrl) async {
     String url = _getUrl(fullUrl);
 
-    Response response = await _pullRequestRepository.getPullRequest(url);
+    // Response response = await _pullRequestRepository.getPullRequest(url);
 
-    List<PullRequestEntity> pullRequestEntities = _decode(response);
+    // List<PullRequestEntity> pullRequestEntities = _decode(response);
+
+    String json = await rootBundle.loadString("assets/pulls.json");
+    List<PullRequestEntity> pullRequestEntities = _decodeFake(json);
     return _convertToModel(pullRequestEntities);
   }
 
@@ -34,6 +38,14 @@ class PullRequestUseCase {
     } else {
       throw Exception('Error to load pull requests');
     }
+  }
+
+  List<PullRequestEntity> _decodeFake(String body) {
+    var decoded = json.decode(body).cast<Map<String, dynamic>>();
+
+    return decoded
+        .map<PullRequestEntity>((json) => PullRequestEntity.fromJson(json))
+        .toList();
   }
 
   PullRequestResponseModel _convertToModel(

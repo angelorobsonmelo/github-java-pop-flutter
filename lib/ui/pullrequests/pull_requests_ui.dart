@@ -54,6 +54,7 @@ class PullRequestsUi extends StatelessWidget {
                   return Center(child: CircularProgressIndicator());
                 else
                   return Container(
+                    height: 250,
                     child: ListView.separated(
                         padding: EdgeInsets.only(top: 46),
                         separatorBuilder: (context, index) => Container(
