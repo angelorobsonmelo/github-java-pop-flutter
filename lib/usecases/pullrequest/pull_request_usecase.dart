@@ -14,12 +14,9 @@ class PullRequestUseCase {
   Future<PullRequestResponseModel> getPullRequests(String fullUrl) async {
     String url = _getUrl(fullUrl);
 
-    // Response response = await _pullRequestRepository.getPullRequest(url);
+    Response response = await _pullRequestRepository.getPullRequest(url);
 
-    // List<PullRequestEntity> pullRequestEntities = _decode(response);
-
-    String json = await rootBundle.loadString("assets/pulls.json");
-    List<PullRequestEntity> pullRequestEntities = _decodeFake(json);
+    List<PullRequestEntity> pullRequestEntities = _decode(response);
     return _convertToModel(pullRequestEntities);
   }
 
@@ -40,14 +37,6 @@ class PullRequestUseCase {
     }
   }
 
-  List<PullRequestEntity> _decodeFake(String body) {
-    var decoded = json.decode(body).cast<Map<String, dynamic>>();
-
-    return decoded
-        .map<PullRequestEntity>((json) => PullRequestEntity.fromJson(json))
-        .toList();
-  }
-
   PullRequestResponseModel _convertToModel(
       List<PullRequestEntity> pullRequests) {
     int openIssuesCount = 0;
@@ -63,11 +52,7 @@ class PullRequestUseCase {
 
     List<PullRequestModel> modelsList = pullRequests
         .map<PullRequestModel>((e) => PullRequestModel(
-              id: e.id,
-              title: e.title,
-              body: e.body,
-              user: e.user,
-            ))
+            id: e.id, title: e.title, body: e.body, user: e.user, htmlUrl: e.htmlUrl))
         .toList();
 
     return PullRequestResponseModel(

@@ -4,6 +4,8 @@ import 'package:git_flutter_app/constants/constants.dart';
 import 'package:git_flutter_app/models/git_repository.dart';
 import 'package:git_flutter_app/models/pull_request_model.dart';
 import 'package:git_flutter_app/ui/pullrequests/bloc/pull_request_bloc.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'dart:async';
 
 class PullRequestsUi extends StatelessWidget {
   final GitRepository gitRepository;
@@ -138,7 +140,17 @@ class PullRequestsUi extends StatelessWidget {
           ],
         ),
       ),
-      onTap: () {},
+      onTap: () {
+        _launchURL(pullRequestModel.htmlUrl);
+      },
     );
+  }
+
+  _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
