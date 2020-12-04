@@ -46,16 +46,15 @@ class PullRequestsUi extends StatelessWidget {
                     ),
                   );
                 }),
-            StreamBuilder(
-              stream: bloc.outPullRequests,
-              initialData: [],
-              builder: (context, snapshot) {
-                if (!snapshot.hasData || snapshot.data.isEmpty)
-                  return Center(child: CircularProgressIndicator());
-                else
-                  return Container(
-                    height: 250,
-                    child: ListView.separated(
+            Expanded(
+              child: StreamBuilder(
+                stream: bloc.outPullRequests,
+                initialData: [],
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData || snapshot.data.isEmpty)
+                    return Center(child: CircularProgressIndicator());
+                  else {
+                    return ListView.separated(
                         padding: EdgeInsets.only(top: 46),
                         separatorBuilder: (context, index) => Container(
                               margin: EdgeInsets.only(left: 15),
@@ -67,19 +66,77 @@ class PullRequestsUi extends StatelessWidget {
                         itemBuilder: (context, index) {
                           if (snapshot.hasData) {
                             PullRequestModel pullRequest = snapshot.data[index];
-                            return ListTile(
-                              title: Text(pullRequest.title),
-                            );
+                            return buildRepositoriesList(pullRequest);
                           } else {
                             return Container(
                               child: Text('Nada!'),
                             );
                           }
-                        }),
-                  );
-              },
+                        });
+                  }
+                },
+              ),
             )
           ],
         ));
+  }
+
+  InkWell buildRepositoriesList(PullRequestModel pullRequestModel) {
+    return InkWell(
+      child: Container(
+        padding: EdgeInsets.only(bottom: 8),
+        margin: EdgeInsets.only(left: 16),
+        height: 120,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.all(4),
+              child: Text(
+                pullRequestModel.title,
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: Colors.blue),
+              ),
+            ),
+            Padding(
+                padding: EdgeInsets.all(4),
+                child: Text(
+                  pullRequestModel.body == null ? '' : pullRequestModel.body,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                )),
+            Expanded(
+                child: Container(
+              margin: EdgeInsets.only(top: 4),
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    radius: 18,
+                    backgroundImage:
+                        NetworkImage(pullRequestModel.user.avatarUrl),
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(left: 4),
+                        child: Text(
+                          pullRequestModel.user.login,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ))
+          ],
+        ),
+      ),
+      onTap: () {},
+    );
   }
 }
