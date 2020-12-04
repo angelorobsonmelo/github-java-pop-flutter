@@ -35,12 +35,14 @@ class PullRequestsUi extends StatelessWidget {
                           Text(
                             '${snapshot.data[Constants.OPEN_ISSUES_COUNT] == null ? 0 : snapshot.data[Constants.OPEN_ISSUES_COUNT]} opened ',
                             style: TextStyle(
-                                color: Colors.yellow,
-                                fontWeight: FontWeight.bold),
+                                color: Constants.ORANGE_COLOR,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16),
                           ),
                           Text(
                               '/ ${snapshot.data[Constants.CLOSE_ISSUES_COUNT] == null ? 0 : snapshot.data[Constants.CLOSE_ISSUES_COUNT]} closed',
-                              style: TextStyle(fontWeight: FontWeight.bold))
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16))
                         ],
                       ),
                     ),
@@ -96,7 +98,7 @@ class PullRequestsUi extends StatelessWidget {
                 pullRequestModel.title,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                    fontSize: 18,
                     color: Colors.blue),
               ),
             ),

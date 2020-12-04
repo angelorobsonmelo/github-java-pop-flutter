@@ -1,11 +1,11 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
+import 'package:git_flutter_app/constants/constants.dart';
 import 'package:git_flutter_app/models/git_repository.dart';
 import 'package:git_flutter_app/ui/gitrepositories/bloc/git_repository_bloc.dart';
 import 'package:git_flutter_app/ui/pullrequests/pull_requests_ui.dart';
 
 class GitRepositoriesScreen extends StatelessWidget {
-
   NavigatorState navigator;
 
   @override
@@ -77,8 +77,10 @@ class GitRepositoriesScreen extends StatelessWidget {
         ),
       ),
       onTap: () {
-        navigator
-            .push(MaterialPageRoute(builder: (context) => PullRequestsUi(gitRepository: repository,)));
+        navigator.push(MaterialPageRoute(
+            builder: (context) => PullRequestsUi(
+                  gitRepository: repository,
+                )));
       },
     );
   }
@@ -120,7 +122,7 @@ class GitRepositoriesScreen extends StatelessWidget {
             width: 24,
             child: Image(
               image: AssetImage('images/icon_fork.png'),
-              color: Colors.black87,
+              color: Constants.ORANGE_COLOR,
             ),
           ),
           Container(
@@ -130,7 +132,7 @@ class GitRepositoriesScreen extends StatelessWidget {
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
-                    color: Colors.black87)),
+                    color: Constants.ORANGE_COLOR)),
           ),
           Container(
             margin: EdgeInsets.only(left: 8),
@@ -138,7 +140,7 @@ class GitRepositoriesScreen extends StatelessWidget {
             width: 24,
             child: Icon(
               Icons.star,
-              color: Colors.black87,
+              color: Constants.ORANGE_COLOR,
             ),
           ),
           Container(
@@ -149,7 +151,7 @@ class GitRepositoriesScreen extends StatelessWidget {
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
-                  color: Colors.black87),
+                  color: Constants.ORANGE_COLOR),
             ),
           )
         ],
