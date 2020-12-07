@@ -5,7 +5,9 @@ import 'package:git_flutter_app/repositories/git_repository_repository.dart';
 import 'package:http/http.dart';
 
 class GitRepositoryUseCase {
-  GitRepositoryRepository _gitRepositoryRepository = GitRepositoryRepository();
+  final GitRepositoryRepository _gitRepositoryRepository;
+
+  GitRepositoryUseCase(this._gitRepositoryRepository);
 
   Future<List<GitRepository>> getGitRepositories(int page) async {
     Response response = await _gitRepositoryRepository.getGitRepositories(page);

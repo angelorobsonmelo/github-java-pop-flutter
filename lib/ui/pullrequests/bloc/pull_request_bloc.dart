@@ -6,7 +6,12 @@ import 'package:git_flutter_app/usecases/pullrequest/pull_request_usecase.dart';
 import 'package:rxdart/rxdart.dart';
 
 class PullRequestBloc implements BlocBase {
-  PullRequestUseCase _pullRequestUseCase = PullRequestUseCase();
+
+  final PullRequestUseCase _pullRequestUseCase;
+
+
+  PullRequestBloc(this._pullRequestUseCase);
+
   final _pullRequestController =
       BehaviorSubject<List<PullRequestModel>>(seedValue: []);
 

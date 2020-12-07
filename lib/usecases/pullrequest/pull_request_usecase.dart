@@ -9,7 +9,10 @@ import 'package:git_flutter_app/repositories/pull_request_repository.dart';
 import 'package:http/http.dart';
 
 class PullRequestUseCase {
-  PullRequestRepository _pullRequestRepository = PullRequestRepository();
+  final PullRequestRepository _pullRequestRepository;
+
+
+  PullRequestUseCase(this._pullRequestRepository);
 
   Future<PullRequestResponseModel> getPullRequests(String fullUrl) async {
     String url = _getUrl(fullUrl);
@@ -52,7 +55,11 @@ class PullRequestUseCase {
 
     List<PullRequestModel> modelsList = pullRequests
         .map<PullRequestModel>((e) => PullRequestModel(
-            id: e.id, title: e.title, body: e.body, user: e.user, htmlUrl: e.htmlUrl))
+            id: e.id,
+            title: e.title,
+            body: e.body,
+            user: e.user,
+            htmlUrl: e.htmlUrl))
         .toList();
 
     return PullRequestResponseModel(

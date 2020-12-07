@@ -4,9 +4,12 @@ import 'package:git_flutter_app/usecases/git_repository/git_repository_usecase.d
 import 'package:rxdart/rxdart.dart';
 
 class GitRepositoryBloc implements BlocBase {
-  GitRepositoryUseCase _gitRepositoryUseCase = GitRepositoryUseCase();
+  final GitRepositoryUseCase _gitRepositoryUseCase;
+
+  GitRepositoryBloc(this._gitRepositoryUseCase);
+
   final _gitRepositoryController =
-  BehaviorSubject<List<GitRepository>>(seedValue: []);
+      BehaviorSubject<List<GitRepository>>(seedValue: []);
 
   List<GitRepository> gitRepositories;
 
