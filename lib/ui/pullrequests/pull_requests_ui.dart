@@ -90,9 +90,10 @@ class PullRequestsUi extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.only(bottom: 8),
         margin: EdgeInsets.only(left: 16),
-        height: 120,
+        height: 150,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
               padding: EdgeInsets.all(4),
@@ -112,9 +113,10 @@ class PullRequestsUi extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(fontWeight: FontWeight.bold),
                 )),
+            SizedBox(
+              height: 10,
+            ),
             Expanded(
-                child: Container(
-              margin: EdgeInsets.only(top: 4),
               child: Row(
                 children: [
                   CircleAvatar(
@@ -123,10 +125,10 @@ class PullRequestsUi extends StatelessWidget {
                         NetworkImage(pullRequestModel.user.avatarUrl),
                   ),
                   Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        margin: EdgeInsets.only(left: 4),
+                        margin: EdgeInsets.only(left: 10),
                         child: Text(
                           pullRequestModel.user.login,
                           style: TextStyle(fontWeight: FontWeight.bold),
@@ -136,7 +138,7 @@ class PullRequestsUi extends StatelessWidget {
                   )
                 ],
               ),
-            ))
+            )
           ],
         ),
       ),
