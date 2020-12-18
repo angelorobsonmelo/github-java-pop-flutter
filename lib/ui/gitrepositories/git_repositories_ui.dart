@@ -73,7 +73,10 @@ class GitRepositoriesScreen extends StatelessWidget {
         margin: EdgeInsets.all(16),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [firstSession(repository), secondSession(repository)],
+          children: [
+            firstSession(repository),
+            Expanded(child: secondSession(repository))
+          ],
         ),
       ),
       onTap: () {
@@ -97,6 +100,7 @@ class GitRepositoriesScreen extends StatelessWidget {
             style: TextStyle(
                 fontWeight: FontWeight.bold, fontSize: 18, color: Colors.blue),
           ),
+
         ),
         Container(
             margin: EdgeInsets.only(top: 4),

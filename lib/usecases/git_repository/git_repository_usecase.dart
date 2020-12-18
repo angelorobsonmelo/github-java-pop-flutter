@@ -16,6 +16,7 @@ class GitRepositoryUseCase {
   }
 
   _decode(Response response) {
+    print("status code is: ${response.statusCode}");
     if (response.statusCode == 200) {
       var decoded = json.decode(response.body);
 

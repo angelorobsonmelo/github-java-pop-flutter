@@ -10,7 +10,6 @@ class GitRepositoryApiDataSource {
     return http.get(url);
   }
 
-  Future<http.Response> getPullRequest(String url) async {
-    return http.get(url);
-  }
+  Future<http.Response> getPullRequest(String url) async => http.get(url);
+
 }
